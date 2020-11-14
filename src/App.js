@@ -1,11 +1,15 @@
 import './App.css';
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-bootstrap';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import LoginView from "./LoginView";
 import EntriesView from "./EntriesView";
+import { CookiesProvider } from "react-cookie";
 
 function App() {
     return (
+        <CookiesProvider>
         <div className="App">
             <Router>
                 <Switch>
@@ -13,7 +17,7 @@ function App() {
                         <LoginView/>
                     </Route>
                     <Route exact path="/">
-                        <Redirect to="/entries" push={false} />
+                        <Redirect to="/login" push={false} />
                     </Route>
                     <Route path="/entries">
                         <EntriesView/>
@@ -21,6 +25,7 @@ function App() {
                 </Switch>
             </Router>
         </div>
+        </CookiesProvider>
     );
 }
 
