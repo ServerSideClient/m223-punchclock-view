@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form } from 'react-bootstrap';
 import { DateTime } from 'luxon';
+import { updateEntry, saveEntry } from './ApiTalker';
 
 export default function EntryForm(props) {
 
@@ -35,26 +36,20 @@ export default function EntryForm(props) {
 	function directSubmission() {
 		if (validFields()) {
 			if ( entryExists ) {
-				updateEntry();
+				updateTheEntry();
 			} else {
-				saveEntry();
+				saveTheEntry();
 			}
+			props.popup.current.close();
 		}
 		else {
 			alert('Check-In soll früher als Check-Out sein.');
 		}
 	}
 
-	function updateEntry() {
+	function updateTheEntry() {
 		let entry = constructEntry();
-		fetch(`/entries/${ entryId }`, {method: 'PUT', headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(entry)})
-			.then((response) => response.json())
-			.then((data) => {
-
-			})
+		updateEntry(entry, entryId);
 	}
 
 	function constructEntry() {
@@ -65,16 +60,9 @@ export default function EntryForm(props) {
 		};
 	}
 
-	function saveEntry() {
+	function saveTheEntry() {
 		let entry = constructEntry();
-		fetch('/entries', {method: 'POST', headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(entry)})
-			.then((response) => response.json())
-			.then((data) => {
-
-			});
+		saveEntry(entry);
 	}
 
 	return (

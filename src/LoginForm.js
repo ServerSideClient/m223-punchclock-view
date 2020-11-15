@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Redirect } from "react-router";
+import { login } from "./ApiTalker";
 
 export default function LoginForm() {
 
@@ -11,14 +12,9 @@ export default function LoginForm() {
 
 	function handleSubmit() {
 		setSubmitting(true);
-		fetch('/login', {method: 'POST', body: JSON.stringify({username, password})})
-			.then((response) => {
-				if ( response.ok ) {
-					setLoggedIn(true);
-				} else {
-					setSubmitting(false);
-				}
-			});
+		// Timeout is a temporary solution for localStorage to catch up
+		login(username, password)
+			.then(() => setTimeout(() => setLoggedIn(true), 100)).catch(() => setSubmitting(false));
 	}
 
 	return (
