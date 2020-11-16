@@ -5,6 +5,7 @@ import 'react-bootstrap';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import LoginView from "./LoginView";
 import EntriesView from "./EntriesView";
+import UsersView from "./UsersView";
 
 function App() {
     return (
@@ -19,6 +20,9 @@ function App() {
                     </Route>
                     <Route path="/entries">
                         <EntriesView/>
+                    </Route>
+                    <Route path="/users">
+                        <UsersView/>
                     </Route>
                 </Switch>
             </Router>

@@ -88,6 +88,7 @@ export function fetchCategories() {
 
 export function deleteCategory(categoryId) {
     return fetch(`/categories/${categoryId}`, {
+        ...defaultOptions,
         method: 'DELETE'
     })
         .then((response) => {
@@ -98,10 +99,55 @@ export function deleteCategory(categoryId) {
 
 export function updateCategory(category, categoryId) {
     return fetch(`/categories/${categoryId}`, {
+        ...defaultOptions,
         method: 'PUT'
     })
         .then((response) => {
             throwIfUnauthorised(response);
             return response;
         });
+}
+
+export function fetchUsers() {
+    fetch('/users', {
+        ...defaultOptions, method: 'GET'
+    })
+        .then((response) => {
+        throwIfUnauthorised(response);
+        return response;
+    })
+}
+
+export function registerUser(user) {
+    fetch('/users', {
+        ...defaultOptions,
+        method: 'POST',
+        body: JSON.stringify(user)
+    })
+        .then((response) => {
+            throwIfUnauthorised(response);
+            return response;
+        });
+}
+
+export function deleteUser(userId) {
+    fetch(`/users/${userId}`, {
+        ...defaultOptions,
+        method: 'DELETE'
+    })
+        .then((response) => {
+        throwIfUnauthorised(response);
+        return response;
+    });
+}
+
+export function updateUser(user, userId) {
+    fetch(`/users/${userId}`, {
+        ...defaultOptions,
+        method: 'PUT',
+        body: JSON.stringify(user)
+    }).then((response) => {
+        throwIfUnauthorised(response);
+        return response;
+    })
 }
