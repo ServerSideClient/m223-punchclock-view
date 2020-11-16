@@ -5,11 +5,9 @@ import 'react-bootstrap';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import LoginView from "./LoginView";
 import EntriesView from "./EntriesView";
-import { CookiesProvider } from "react-cookie";
 
 function App() {
     return (
-        <CookiesProvider>
         <div className="App">
             <Router>
                 <Switch>
@@ -25,7 +23,6 @@ function App() {
                 </Switch>
             </Router>
         </div>
-        </CookiesProvider>
     );
 }
 
